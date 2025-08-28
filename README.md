@@ -1,3 +1,45 @@
+## WhatsApp Audio Assistant (PT-BR)
+
+Aplicação Node.js + TypeScript que recebe áudios no WhatsApp, transcreve (STT), detecta humor, gera resposta adequada e envia áudio com TTS.
+
+### Requisitos
+- Node.js 18+
+- Conta no WhatsApp Cloud API
+- Token da API do WhatsApp e `phone_number_id`
+- Chave da OpenAI
+
+### Setup
+1. Clone o repositório e instale dependências:
+```
+npm install
+```
+2. Crie um `.env` baseado em `.env.example` e preencha os valores.
+3. Rode em desenvolvimento:
+```
+npm run dev
+```
+4. Exponha a porta local (ex: com ngrok) e configure o webhook do WhatsApp com a URL `/webhook` e o `verify_token`.
+
+### Variáveis de ambiente
+- `PORT`: porta do servidor (default 3000)
+- `WHATSAPP_VERIFY_TOKEN`: token de verificação do webhook
+- `WHATSAPP_ACCESS_TOKEN`: token do Graph API (WhatsApp)
+- `WHATSAPP_PHONE_NUMBER_ID`: ID do número de telefone do WhatsApp
+- `OPENAI_API_KEY`: chave da OpenAI
+
+### Endpoints
+- `GET /webhook`: verificação do webhook do WhatsApp
+- `POST /webhook`: recebimento das mensagens
+
+### Fluxo
+1. Recebe áudio de usuário via webhook
+2. Baixa mídia do WhatsApp
+3. Transcreve com OpenAI
+4. Detecta humor
+5. Gera resposta textual adaptada
+6. Sintetiza fala (TTS)
+7. Faz upload do áudio ao WhatsApp e envia como resposta
+
 <header>
 
 <!--
